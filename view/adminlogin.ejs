@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login</title>
+    <link rel="icon" type="/image/png" href="/img/logo.png" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap");
+      body {
+        font-family: "Lexend", sans-serif;
+        background: #f8f9fa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .login-container {
+        width: 90%;
+        max-width: 400px;
+        padding: 25px;
+        background: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        text-align: center;
+      }
+
+      h2 {
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .input-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+
+      input {
+        width: 90%;
+        padding: 12px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+        text-align: center;
+      }
+
+      button {
+        width: 90%;
+        padding: 12px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 10px;
+      }
+
+      button:hover {
+        background: #0056b3;
+      }
+
+      @media (max-width: 400px) {
+        .login-container {
+          width: 95%;
+        }
+      }
+    </style>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="login-container">
+      <h2>Admin Login</h2>
+      <form action="/admin/login" method="POST">
+        <div class="input-container">
+          <input
+            type="text"
+            name="mobile"
+            id="mobile"
+            placeholder="Enter Mobile Number"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Enter Password"
+            required
+          />
+        </div>
+
+        <% if (error) { %>
+        <div style="color: red; margin-top: 10px">
+          <p><%= error %></p>
+        </div>
+        <% } %>
+
+        <button type="submit">Login</button>
+
+        <p style="margin-top: 10px">
+          Don't have an account? <a href="/adminsignup">Signup</a>
+      </form>
+    </div>
+  </body>
+</html>

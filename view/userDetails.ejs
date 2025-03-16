@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Data</title>
+
+    <style>
+      #usersContainer {
+        padding: 20px;
+      }
+
+      .user {
+        border: 2px solid #4caf50;
+        padding: 20px;
+        border-radius: 15px;
+        background: #f3f3f3;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        margin-bottom: 30px;
+      }
+
+      .user h3 {
+        color: #4caf50;
+        font-size: 25px;
+        margin-bottom: 10px;
+      }
+
+      .user p {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid #ccc;
+      }
+
+      th {
+        background: #4caf50;
+        color: white;
+        padding: 10px;
+        text-align: left;
+      }
+
+      td {
+        padding: 10px;
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      td img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      }
+
+      tr:nth-child(even) {
+        background: #f9f9f9;
+      }
+
+      tr:hover {
+        background: #d1ffd1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>All Users with Cart Products</h1>
+      <div id="usersContainer"></div>
+    </div>
+
+    <script>
+      window.onload = async function () {
+        try {
+          const response = await fetch("/admin/all-users");
+          const users = await response.json();
+          const container = document.getElementById("usersContainer");
+
+          users.forEach((user) => {
+            container.innerHTML += `
+        <div class="user">
+          <h3>Name: ${user.user.name}</h3>
+          <p>Email: ${user.user.email}</p>
+          <h4>Products in Cart:</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Category</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${
+                user.cart.length > 0
+                  ? user.cart
+                      .map(
+                        (item) => `
+                  <tr>
+                    <td><img src="${item.imgUrl}" /></td>
+                    <td>${item.title}</td>
+                    <td>${item.category}</td>
+                  </tr>`
+                      )
+                      .join("")
+                  : `<tr><td colspan="3">No Products in Cart</td></tr>`
+              }
+            </tbody>
+          </table>
+        </div>
+      `;
+          });
+        } catch (error) {
+          console.log("Failed to load users", error);
+        }
+      };
+    </script>
+  </body>
+</html>
